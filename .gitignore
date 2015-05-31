@@ -1,0 +1,10 @@
+/Debug
+/Release
+/TradeAgentClientDLL/Debug
+/TradeAgentClientDLL/Release
+/TradeAgentClientDllTest/Debug
+/TradeAgentClientDllTest/Release
+*.opensdf
+*.sdf
+*.suo
+*.ipch
