@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\Requests">
-      <UniqueIdentifier>{8426560d-b66b-41eb-9bc2-b7f2b24671bf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,19 +45,16 @@
     <ClInclude Include="Common.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SymbolNameListRequest.h">
-      <Filter>源文件\Requests</Filter>
-    </ClInclude>
-    <ClInclude Include="RatesyTimeRequest.h">
-      <Filter>源文件\Requests</Filter>
-    </ClInclude>
-    <ClInclude Include="SendOrderRequest.h">
-      <Filter>源文件\Requests</Filter>
-    </ClInclude>
-    <ClInclude Include="TestRequest.h">
-      <Filter>源文件\Requests</Filter>
-    </ClInclude>
     <ClInclude Include="BinaryReader.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketAnalyzer.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketReader.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeController.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,17 +83,14 @@
     <ClCompile Include="Indications.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SymbolNameListRequest.cpp">
-      <Filter>源文件\Requests</Filter>
+    <ClCompile Include="PacketAnalyzer.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RatesyTimeRequest.cpp">
-      <Filter>源文件\Requests</Filter>
+    <ClCompile Include="PacketReader.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SendOrderRequest.cpp">
-      <Filter>源文件\Requests</Filter>
-    </ClCompile>
-    <ClCompile Include="TestRequest.cpp">
-      <Filter>源文件\Requests</Filter>
+    <ClCompile Include="PipeController.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

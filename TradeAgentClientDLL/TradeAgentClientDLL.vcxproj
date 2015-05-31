@@ -14,6 +14,7 @@
     <ProjectGuid>{E4139C4D-38B6-421E-8A7E-1CD081EA0B58}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TradeAgentClientDLL</RootNamespace>
+    <ProjectName>SocketPipeClientDLL</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -82,14 +83,13 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="CommonType.h" />
     <ClInclude Include="Indications.h" />
-    <ClInclude Include="RatesyTimeRequest.h" />
+    <ClInclude Include="PacketAnalyzer.h" />
+    <ClInclude Include="PacketReader.h" />
+    <ClInclude Include="PipeController.h" />
     <ClInclude Include="Requests.h" />
-    <ClInclude Include="SendOrderRequest.h" />
     <ClInclude Include="SocketConnector.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="SymbolNameListRequest.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestRequest.h" />
     <ClInclude Include="TradeAgentClientDLL.h" />
   </ItemGroup>
   <ItemGroup>
@@ -104,16 +104,15 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Indications.cpp" />
-    <ClCompile Include="RatesyTimeRequest.cpp" />
+    <ClCompile Include="PacketAnalyzer.cpp" />
+    <ClCompile Include="PacketReader.cpp" />
+    <ClCompile Include="PipeController.cpp" />
     <ClCompile Include="Requests.cpp" />
-    <ClCompile Include="SendOrderRequest.cpp" />
     <ClCompile Include="SocketConnector.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SymbolNameListRequest.cpp" />
-    <ClCompile Include="TestRequest.cpp" />
     <ClCompile Include="TradeAgentClientDLL.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
