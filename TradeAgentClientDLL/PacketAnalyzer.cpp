@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PacketAnalyzer.h"
 #include "binaryReader.h"
+#include "BinaryWriter.h"
 #include <malloc.h>
 #include <math.h>
 
@@ -33,6 +34,9 @@ struct PacketAnalyzController
 
 static PacketAnalyzController gCtrl;
 static const char gPacketStartFlag[] = { 0xAA };
+
+
+static void ReceiveData();
 
 void  Add(char* buffer, int length)
 {
@@ -150,5 +154,18 @@ int PacketAnalyzerAddData(char* buffer, int length, Packet *packet)
 		packet->length = rcvCtrl->packetLength;
 		return 1;
 	}
+	return 0;
+}
+
+int PacketAnalyzerSetHeader(Packet *packet, char** buffer, int *length )
+{
+	BinaryWriterControl ctrl;
+
+	BinaryWriter_Init(&ctrl, packet->buffer, packet->length);
+	BinaryWriter_SetByte(&ctrl, PACKET_START_FLAG);
+
+	*buffer = packet->buffer;
+	*length = packet->length;
+	
 	return 0;
 }

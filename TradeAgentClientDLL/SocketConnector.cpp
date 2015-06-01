@@ -88,7 +88,7 @@ int SocketConnector_Connect(SocketConnectionHandle handle, char* ipAddress, int 
 
 }
 
-int __stdcall CloseConnection(SocketConnectionHandle *handle)
+int CloseConnection(SocketConnectionHandle *handle)
 {
 	SocketConnection *h = (SocketConnection *)handle;
 	closesocket(h->connection); // ¹Ø±Õ¼àÌısocket

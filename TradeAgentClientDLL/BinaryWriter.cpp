@@ -9,6 +9,15 @@ void BinaryWriter_Init(BinaryWriterControl *ctrl, char *buffer, int size)
 	ctrl->maxLength = size;
 }
 
+int BinaryWriter_Skip(BinaryWriterControl *ctrl, int pos)
+{
+	if (ctrl->index + pos > ctrl->maxLength)
+		return -1;
+
+	ctrl->index += pos;
+	return 0;
+}
+
 int BinaryWriter_SetByte(BinaryWriterControl *ctrl, char data)
 {
 	int len = 1;

@@ -2,7 +2,7 @@
 
 #include "SocketConnector.h"
 #include "PacketAnalyzer.h"
-#include "PacketReader.h"
+#include "PacketWriter.h"
 #include "TradeAgentClientDLL.h"
 #include <stdio.h>
 
@@ -21,7 +21,8 @@ EXTERN_C
 	TRADEAGENTCLIENTDLL_API int __stdcall InitSocket()
 	{
 		printf("InitConnection \n");
-		InitConnection(ipAddressString, port, &gSocketHandle);
+		gSocketHandle = SocketConnector_Create();
+		SocketConnector_Connect(gSocketHandle, ipAddressString, port);
 
 		PacketAnalyzerInit();
 
@@ -49,10 +50,23 @@ EXTERN_C
 		ret = PacketAnalyzerAddData(gRcvBuffer, gRcvLength, &packet);
 		if (ret == 1)
 		{
+			// Get packet
 			*handle = PacketReaderCreate(packet);
 
 		}
 
 		return(0);
+	}
+
+	TRADEAGENTCLIENTDLL_API int __stdcall SendPacket(PacketWriterHandle handle)
+	{
+		Packet packet;
+		char *buffer;
+		int length;
+		int ret;
+		PacketWriterGetPacket(handle, &packet);
+		PacketAnalyzerSetHeader(&packet, &buffer, &length);
+		ret = SendSocketResult(gSocketHandle, buffer, length);
+		return 0;
 	}
 }

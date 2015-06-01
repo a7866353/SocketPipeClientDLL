@@ -82,11 +82,10 @@
     <ClInclude Include="BinaryWriter.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="CommonType.h" />
-    <ClInclude Include="Indications.h" />
     <ClInclude Include="PacketAnalyzer.h" />
     <ClInclude Include="PacketReader.h" />
+    <ClInclude Include="PacketWriter.h" />
     <ClInclude Include="PipeController.h" />
-    <ClInclude Include="Requests.h" />
     <ClInclude Include="SocketConnector.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -103,11 +102,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Indications.cpp" />
     <ClCompile Include="PacketAnalyzer.cpp" />
     <ClCompile Include="PacketReader.cpp" />
+    <ClCompile Include="PacketWriter.cpp" />
     <ClCompile Include="PipeController.cpp" />
-    <ClCompile Include="Requests.cpp" />
     <ClCompile Include="SocketConnector.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
