@@ -5,7 +5,7 @@
 #include <malloc.h>
 #include <math.h>
 
-#define PACKET_START_FLAG (0x55)
+static const char PACKET_START_FLAG = 0xAA;
 typedef void(*DataAddFunc)();
 enum ANALYZER_STATUS
 {
@@ -27,7 +27,7 @@ struct PacketAnalyzController
 	ANALYZER_STATUS status;
 	char *buffer;
 	int length;
-	char index;
+	int index;
 	DataAddFunc addFunc;
 	PacketReceiveController rcvCtrl;
 };
@@ -79,9 +79,11 @@ static bool IsReadEnd()
 
 static void CheckPacketBegin()
 {
+	char ch;
 	while (true)
 	{
-		if (PACKET_START_FLAG == ReadByte())
+		ch = ReadByte();
+		if (PACKET_START_FLAG == ch)
 		{
 			Next();
 			gCtrl.status = ANALYZER_STATUS_RECEIVING;
@@ -108,6 +110,7 @@ static void ReceiveData()
 		BinaryReaderInit(GetAddress(), RemainBytes(), &binCtrl);
 		ret = BinaryReaderGetInt(&binCtrl, &ctrl->packetLength);
 
+		gCtrl.index += 4;
 		ctrl->index = 0;
 		ctrl->buffer = (char *)malloc(ctrl->packetLength);
 		ctrl->isAvailable = true;
@@ -116,18 +119,20 @@ static void ReceiveData()
 	readCount = min((remain), RemainBytes());
 	memcpy(ctrl->buffer + ctrl->index, GetAddress(), readCount);
 	ctrl->index += readCount;
+	gCtrl.index += readCount;
 
 	if (ctrl->index >= ctrl->packetLength)
 	{
 		gCtrl.status = ANALYZER_STATUS_NONE;
 		gCtrl.addFunc = CheckPacketBegin;
+		ctrl->isAvailable = false;
 	}
 		
 }
 
 void ModeRun()
 {
-	while (IsReadEnd == false)
+	while (IsReadEnd() == false)
 	{
 		gCtrl.addFunc();
 	}
@@ -148,7 +153,7 @@ int PacketAnalyzerAddData(char* buffer, int length, Packet *packet)
 	gCtrl.length = length;
 
 	ModeRun();
-	if (rcvCtrl->index == rcvCtrl->packetLength)
+	if ((rcvCtrl->packetLength != 0) && (rcvCtrl->index == rcvCtrl->packetLength) )
 	{
 		packet->buffer = rcvCtrl->buffer;
 		packet->length = rcvCtrl->packetLength;
@@ -163,7 +168,7 @@ int PacketAnalyzerSetHeader(Packet *packet, char** buffer, int *length )
 
 	BinaryWriter_Init(&ctrl, packet->buffer, packet->length);
 	BinaryWriter_SetByte(&ctrl, PACKET_START_FLAG);
-
+	BinaryWriter_SetInt(&ctrl, packet->length-5);
 	*buffer = packet->buffer;
 	*length = packet->length;
 	

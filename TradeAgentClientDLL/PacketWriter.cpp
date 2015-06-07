@@ -3,7 +3,7 @@
 #include "BinaryWriter.h"
 #include <malloc.h>
 
-#define PACKET_LENGTH (4096+PACKET_HEADER_SIZE)
+#define PACKET_LENGTH (4096*1024+PACKET_HEADER_SIZE)
 
 struct PacketWriterController
 {

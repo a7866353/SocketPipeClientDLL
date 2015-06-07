@@ -130,14 +130,14 @@ int GetSocketRequest(SocketConnectionHandle handle, char *buffer, int *length)
 		}
 		*length = 0;
 	}
-	return 0;
+	return *length;
 }
 
 int SendSocketResult(SocketConnectionHandle handle, char *buffer, int length)
 {
 	SocketConnection *h = (SocketConnection *)handle;
 	int sendCount = 0;
-	if (h->status == SOCKET_CONNECTION_STATUS_DISCONNECTED)
+	if (h->status == SOCKET_CONNECTION_STATUS_CONNECTED)
 	{		
 		// send data
 		sendCount = send(h->connection, buffer, length, NULL);

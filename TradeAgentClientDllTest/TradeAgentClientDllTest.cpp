@@ -9,6 +9,18 @@
 
 
 #define D_RATEINFO_COUNT (3)
+enum RequestType
+{
+	None = 0,
+	TestRequest,
+	SendOrderRequest,
+	SendOrderResult,
+	RateDataRequest,
+	RateDataIndicate,
+	SymbolNameListRequest,
+	SymbolNameListResult,
+};
+static char valueStr[4096 * 1000];
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -19,20 +31,43 @@ int _tmain(int argc, _TCHAR* argv[])
 	while (true)
 	{
 		GetPacket(&readHandle);
-		if (readHandle != NULL)
+		if (readHandle == NULL)
 		{
-			writeHandle = PacketWriterCreate();
-			PacketWriterSetByte(writeHandle, 0x01);
-			PacketWriterSetInt(writeHandle, 0x11223344);
-			PacketWriterSetString(writeHandle, "AABBCCDDEE");
-			SendPacket(writeHandle);
-			PacketWriterFree(writeHandle);
-
-			PacketReaderFree(readHandle);
+			Sleep(1);
+			continue;
 		}
 
-		Sleep(1000);
+		int type;
+		int valueInt;
+		short valueShort;
+		char valueChar;
+		double valueDouble;
 
+		RequestGetInt(readHandle, &type);
+		writeHandle = PacketWriterCreate();
+		switch (type)
+		{
+			case TestRequest:
+				PacketWriterSetInt(writeHandle, type);
+
+				RequestGetDouble(readHandle, &valueDouble);
+				PacketWriterSetDouble(writeHandle, valueDouble);
+
+				RequestGetInt(readHandle, &valueInt);
+				PacketWriterSetInt(writeHandle, valueInt);
+
+				RequestGetString(readHandle, valueStr, sizeof(valueStr));
+				PacketWriterSetString(writeHandle, valueStr);
+
+				RequestGetString(readHandle, valueStr, sizeof(valueStr));
+				PacketWriterSetString(writeHandle, valueStr);
+				break;
+			default:
+				break;
+		}
+		SendPacket(writeHandle);
+		PacketWriterFree(writeHandle);
+		PacketReaderFree(readHandle);
 	}
 
 	getchar();

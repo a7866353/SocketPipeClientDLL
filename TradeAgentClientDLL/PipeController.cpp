@@ -39,7 +39,7 @@ EXTERN_C
 	{
 		Packet packet;
 		int ret = 0;
-		handle = NULL;
+		*handle = NULL;
 		gRcvLength = D_RCV_BUFFER_LENGTH;
 		ret = GetSocketRequest(gSocketHandle, gRcvBuffer, &gRcvLength);
 		if (ret <= 0)
